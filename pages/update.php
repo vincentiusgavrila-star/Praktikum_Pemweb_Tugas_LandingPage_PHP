@@ -112,7 +112,7 @@
     <!-- FORM -->
     <div class="continerForm">
         <h1 class="titleForm">Form Pendaftaran</h1>
-        <form action="lihatData.php" method="POST" id="form">
+        <form action="aksi.php" method="POST" id="form">
             <div class="form">
                 <label for="nama">Nama Lengkap:</label>
                 <input type="text" id="nama" name="nama" placeholder="Masukkan nama Anda" required>
@@ -163,11 +163,6 @@
         <!-- /FORM -->
         <script>
         const body = document.body;
-        const button = document.getElementById("form-button")
-        button.addEventListener('click', (event) => {
-            event.preventDefault();
-            window.location.href = './aksi.php';
-        });
         const image = document.getElementById("image")
         image.addEventListener('click', (event) => {
             event.preventDefault();

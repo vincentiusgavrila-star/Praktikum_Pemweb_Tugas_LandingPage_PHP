@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="./assets/css/main.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
     <style>
     body {
         padding-top: 70px;
@@ -18,6 +20,8 @@
         min-height: calc(100vh - 70px);
         padding: 20px;
         display: flex;
+        flex-direction: column;
+        gap: 20px;
         justify-content: center;
         align-items: center;
     }
@@ -85,8 +89,16 @@
                 <p>Singkat Saja</p>
             </div>
         </div>
+        <div class="cardBox" onclick="window.location.href='./pages/lihatData.php'">
+            <img src="./assets/images/test.png" alt="tes">
+            <div class="card-body p-3">
+                <h4>Lihat Data Pendaftar</h4>
+                <p>Lihat semua data pendaftar yang sudah mengisi formulir</p>
+            </div>
+        </div>
     </div>
     <!-- /CONTENT -->
+
 
 
     <script>
@@ -94,7 +106,7 @@
     const image = document.getElementById("image")
     image.addEventListener('click', (event) => {
         event.preventDefault();
-        window.location.href = './pages/form.php';
+        window.location.href = './index.php';
     });
     </script>
 </body>

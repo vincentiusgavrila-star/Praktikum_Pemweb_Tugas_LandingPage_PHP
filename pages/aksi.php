@@ -57,6 +57,9 @@
             <p>
                 <a href="./form.php" class="goTo">FORM</a>
             </p>
+            <p>
+                <a href="./cekDB.php" class="goTo">CEK DATA</a>
+            </p>
         </div>
     </div>
     <!-- /NAVIGASI -->
@@ -66,24 +69,6 @@
             Formulir Anda telah berhasil terkirim. Kami akan segera memproses data Anda.
         </p>
     </div>
-
-    <?php 
-        include 'koneksi.php';
-
-        $nama = $_POST["nama"];
-        $jenisKelamin = $_POST["jenis_kelamin"];
-        $jurusan = $_POST["jurusan"];
-        $minat = $_POST["minat"];
-        $komentar = $_POST["komentar"];
-
-        $sql = "INSERT INTO mahasiswa (nama, jenis_kelamin, jurusan, minat, komentar) VALUES ('$nama', '$jenisKelamin', '$jurusan', '$minat', '$komentar')";
-        if($koneksi->query($sql) === TRUE){
-            // echo("Data berhasil ditambahkan");
-            // echo("<br> <a href= '../index.php'>HOME</a>");
-        }else{
-            echo("Error " . $sql . "<br>" . $koneksi->error);
-        }
-    ?>
 
     <script>
     const body = document.body;
