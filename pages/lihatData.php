@@ -1,23 +1,8 @@
 <?php
 include 'koneksi.php';
 
-$nama = $_POST["nama"];
-$jenisKelamin = $_POST["jenis_kelamin"];
-$jurusan = $_POST["jurusan"];
-$minat = $_POST["minat"];
-$komentar = $_POST["komentar"];
-
-$sql = "INSERT INTO mahasiswa (nama, jenis_kelamin, jurusan, minat, komentar) VALUES ('$nama', '$jenisKelamin', '$jurusan', '$minat', '$komentar')";
-    if($koneksi->query($sql) === TRUE){
-        // echo("Data berhasil ditambahkan");
-       // echo("<br> <a href= '../index.php'>HOME</a>");
-    }else{
-        echo("Error " . $sql . "<br>" . $koneksi->error);
-    }
 $sql = "SELECT * FROM mahasiswa";
 $result = $koneksi->query($sql);
-
-
 
 ?>
 
@@ -31,19 +16,18 @@ $result = $koneksi->query($sql);
     <link rel="stylesheet" href="../assets/css/main.css">
     <style>
     body {
-        font-family: Arial, sans-serif;
         background: #f4f6f9;
-        margin: 0;
+        margin-top: 70px;
         padding: 0;
     }
 
     .container {
         width: 85%;
         margin: 50px auto;
-        background: #fff;
-        padding: 25px 35px;
+        padding: 30px;
+        background-color: #fff;
         border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
 
     h1 {
@@ -66,11 +50,6 @@ $result = $koneksi->query($sql);
 
     td {
         padding: 10px;
-        border-bottom: 1px solid #ddd;
-    }
-
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
     }
 
     .aksi-btn {
@@ -96,13 +75,6 @@ $result = $koneksi->query($sql);
 
     .btn:hover {
         opacity: 0.8;
-    }
-
-    .footer {
-        text-align: center;
-        margin-top: 25px;
-        color: #718093;
-        font-size: 13px;
     }
     </style>
 </head>
@@ -149,9 +121,9 @@ $result = $koneksi->query($sql);
                     echo "<td>".$row['minat']."</td>";
                     echo "<td>".$row['komentar']."</td>";
                     echo "<td class='aksi-btn'>
-                            <a class='btn edit' href='update.php?id=".$row['id']."'>Edit</a>
-                            <a class='btn delete' href='hapus.php?id=".$row['id']."' onclick='return confirm(\"Yakin hapus data ini?\")'>Delete</a>
-                          </td>";
+                    <a class='btn edit' href='update.php?id=".$row['id']."'>Edit</a>
+                    <a class='btn delete' href='hapus.php?id=".$row['id']."' onclick='return confirm(\"Yakin hapus data ini?\")'>Delete</a>
+                    </td>";
                     echo "</tr>";
                 }
             } else {
@@ -160,10 +132,6 @@ $result = $koneksi->query($sql);
             $koneksi->close();
             ?>
         </table>
-
-        <div class="footer">
-            © <?php echo date("Y"); ?> | Halaman Cek Database (CRUD Read)
-        </div>
     </div>
 </body>
 

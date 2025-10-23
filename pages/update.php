@@ -1,10 +1,48 @@
+<?php
+include 'koneksi.php';
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $query = "SELECT * FROM mahasiswa WHERE id = $id";
+    $result = mysqli_query($koneksi, $query);
+
+    if (mysqli_num_rows($result) == 1) {
+        $data = mysqli_fetch_assoc($result);
+    } else {
+        echo "<script>alert('Data tidak ditemukan!'); window.location.href='koneksi.php';</script>";
+        exit;
+    }
+}
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id             = $_POST['id'];
+    $nama           = $_POST['nama'];
+    $jenis_kelamin  = $_POST['jenis_kelamin'];
+    $jurusan        = $_POST['jurusan'];
+    $minat          = $_POST['minat'];
+    $komentar       = $_POST['komentar'];
+
+    $updateQuery = "UPDATE mahasiswa 
+                    SET nama='$nama', jenis_kelamin='$jenis_kelamin', jurusan='$jurusan', minat='$minat', komentar='$komentar'
+                    WHERE id=$id";
+
+    if (mysqli_query($koneksi, $updateQuery)) {
+        echo "<script>alert('Data berhasil diperbarui!'); window.location.href='lihatData.php';</script>";
+        exit;
+    } else {
+        echo "Error: " . mysqli_error($koneksi);
+    }
+}
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form</title>
+    <title>Update Data</title>
     <link rel="stylesheet" href="../assets/css/main.css">
     <style>
     body {
@@ -90,40 +128,41 @@
 </head>
 
 <body>
-    <!-- NAVIGASI -->
+    <!-- NAVBAR -->
     <div class="navbar">
         <div id="image">
-            <img src="../assets/images/upnv.png" alt="Banteng">
+            <img src="../assets/images/upnv.png" alt="Logo">
         </div>
         <a href="../index.php" style="text-decoration: none; color: rgb(255, 255, 255);">
             <h3>Landing Page Sederhana</h3>
         </a>
         <div class="rightNav">
-            <p>
-                <a href="../index.php" class="goTo">HOME</a>
-            </p>
-            <p>
-                <a href="./form.php" class="goTo">FORM</a>
-            </p>
+            <p><a href="../index.php" class="goTo">HOME</a></p>
+            <p><a href="./cekDB.php" class="goTo">LIHAT DATA</a></p>
         </div>
     </div>
-    <!-- /NAVIGASI -->
+    <!-- /NAVBAR -->
 
-    <!-- FORM -->
+    <!-- FORM UPDATE -->
     <div class="continerForm">
-        <h1 class="titleForm">Form Pendaftaran</h1>
-        <form action="aksi.php" method="POST" id="form">
+        <h1 class="titleForm">Edit Data Mahasiswa</h1>
+        <form method="POST">
+            <input type="hidden" name="id" value="<?= $data['id'] ?>">
+
             <div class="form">
                 <label for="nama">Nama Lengkap:</label>
-                <input type="text" id="nama" name="nama" placeholder="Masukkan nama Anda" required>
+                <input type="text" id="nama" name="nama" value="<?= $data['nama'] ?>" required>
             </div>
 
             <div class="form">
                 <label>Jenis Kelamin:</label>
                 <div class="radio-group">
-                    <input type="radio" id="pria" name="jenis_kelamin" value="Pria" required>
+                    <input type="radio" id="pria" name="jenis_kelamin" value="Pria"
+                        <?= ($data['jenis_kelamin'] == 'Pria') ? 'checked' : '' ?>>
                     <label for="pria">Pria</label>
-                    <input type="radio" id="wanita" name="jenis_kelamin" value="Wanita">
+
+                    <input type="radio" id="wanita" name="jenis_kelamin" value="Wanita"
+                        <?= ($data['jenis_kelamin'] == 'Wanita') ? 'checked' : '' ?>>
                     <label for="wanita">Wanita</label>
                 </div>
             </div>
@@ -131,44 +170,41 @@
             <div class="form">
                 <label for="jurusan">Jurusan Pilihan:</label>
                 <select id="jurusan" name="jurusan" required>
-                    <option value="" disabled selected>Pilih Jurusan</option>
-                    <option value="Teknik Informatika">Teknik Informatika</option>
-                    <option value="Sistem Informasi">Sistem Informasi</option>
-                    <option value="Desain Komunikasi Visual">Desain Komunikasi Visual</option>
+                    <option value="Teknik Informatika"
+                        <?= ($data['jurusan'] == 'Teknik Informatika') ? 'selected' : '' ?>>Teknik Informatika</option>
+                    <option value="Sistem Informasi" <?= ($data['jurusan'] == 'Sistem Informasi') ? 'selected' : '' ?>>
+                        Sistem Informasi</option>
+                    <option value="Desain Komunikasi Visual"
+                        <?= ($data['jurusan'] == 'Desain Komunikasi Visual') ? 'selected' : '' ?>>Desain Komunikasi
+                        Visual</option>
                 </select>
             </div>
 
             <div class="form">
                 <label>Minat:</label>
                 <div class="checkbox-group">
-                    <input type="checkbox" id="web" name="minat" value="Web Development">
+                    <input type="checkbox" id="web" name="minat" value="Web Development"
+                        <?= ($data['minat'] == 'Web Development') ? 'checked' : '' ?>>
                     <label for="web">Web Development</label>
-                    <input type="checkbox" id="mobile" name="minat" value="Mobile Development">
+
+                    <input type="checkbox" id="mobile" name="minat" value="Mobile Development"
+                        <?= ($data['minat'] == 'Mobile Development') ? 'checked' : '' ?>>
                     <label for="mobile">Mobile Development</label>
-                    <input type="checkbox" id="uiux" name="minat" value="UI/UX Design">
+
+                    <input type="checkbox" id="uiux" name="minat" value="UI/UX Design"
+                        <?= ($data['minat'] == 'UI/UX Design') ? 'checked' : '' ?>>
                     <label for="uiux">UI/UX Design</label>
                 </div>
             </div>
 
             <div class="form">
                 <label for="komentar">Komentar:</label>
-                <textarea id="komentar" name="komentar" rows="4"
-                    placeholder="Tulis komentar Anda di sini..."></textarea>
+                <textarea id="komentar" name="komentar" rows="4"><?= $data['komentar'] ?></textarea>
             </div>
 
-            <button type="submit" id="form-button">
-                Kirim Formulir
-            </button>
+            <button type="submit" id="form-button">Update Data</button>
         </form>
-        <!-- /FORM -->
-        <script>
-        const body = document.body;
-        const image = document.getElementById("image")
-        image.addEventListener('click', (event) => {
-            event.preventDefault();
-            window.location.href = '../index.php';
-        });
-        </script>
+    </div>
 </body>
 
 </html>

@@ -23,6 +23,7 @@
         border-radius: 15px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         transform: scale(0.95);
+        animation: popIn 0.8s forwards;
         position: relative;
     }
 
@@ -64,24 +65,20 @@
 
     <?php 
     include 'koneksi.php';
-    $nama = $_POST["nama"];
-    $jenisKelamin = $_POST["jenis_kelamin"];
-    $jurusan = $_POST["jurusan"];
-    $minat = $_POST["minat"];
-    $komentar = $_POST["komentar"];
+    
+    if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $query = "DELETE FROM mahasiswa WHERE id = $id";
+    $result = mysqli_query($koneksi, $query);
 
-    $sql = "INSERT INTO mahasiswa (nama, jenis_kelamin, jurusan, minat, komentar) VALUES ('$nama', '$jenisKelamin', '$jurusan', '$minat', '$komentar')";
-    if($koneksi->query($sql) === TRUE){
-        // echo("Data berhasil ditambahkan");            // echo("<br> <a href= '../index.php'>HOME</a>");
-    }else{
-        echo("Error " . $sql . "<br>" . $koneksi->error);
-    }
+}
+
     ?>
     <!-- /NAVIGASI -->
     <div class="container">
         <h1>TERIMA KASIH!</h1>
         <p class="message">
-            Formulir Anda telah berhasil terkirim!!
+            Data Anda telah dihapus
         </p>
     </div>
 
