@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="./assets/css/main.css">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
     body {
-        padding-top: 70px;
+        /* padding-top: 70px; */
         margin: 0;
         background-color: #0f8cba;
     }
@@ -20,7 +20,7 @@
         min-height: calc(100vh - 70px);
         padding: 20px;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         gap: 20px;
         justify-content: center;
         align-items: center;
@@ -42,11 +42,12 @@
         border: 1px solid #ddd;
         border-radius: 10px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        width: 300px;
+        width: 260px;
+        height: 400px;
         padding: 20px;
         box-sizing: border-box;
         cursor: pointer;
-        transition: transform 0.2s;
+        transition: transform 0.9s;
         overflow: hidden;
         text-align: center;
     }
@@ -80,20 +81,32 @@
 
     <!-- CONTENT -->
     <div class="containerContent">
-        <div class="cardBox">
+        <div class="cardBox" onclick="window.location.href='./pages/form.php'">
             <div class="cardDesc">
-                <a href="./pages/form.php">
-                    <img src="./assets/images/IF2.png" alt="Hai">
-                </a>
-                <h2>AYO DAFTAR di INFORMATIKA</h2>
+                <img src="./assets/images/IF2.png" alt="Hai">
+                <h4>AYO DAFTAR di INFORMATIKA</h4>
                 <p>Singkat Saja</p>
             </div>
         </div>
         <div class="cardBox" onclick="window.location.href='./pages/lihatData.php'">
-            <img src="./assets/images/test.png" alt="tes">
-            <div class="card-body p-3">
+            <div class="cardDesc">
+                <img src="./assets/images/IF2.png" alt="Hai">
                 <h4>Lihat Data Pendaftar</h4>
                 <p>Lihat semua data pendaftar yang sudah mengisi formulir</p>
+            </div>
+        </div>
+        <div class="cardBox" onclick="window.location.href='./pages/formMatkul.php'">
+            <div class="cardDesc">
+                <img src="./assets/images/IF2.png" alt="Hai">
+                <h4>Input Matkul</h4>
+                <p>Isi mata kuliah</p>
+            </div>
+        </div>
+        <div class="cardBox" onclick="window.location.href='./pages/lihatMatkul.php'">
+            <div class="cardDesc">
+                <img src="./assets/images/IF2.png" alt="Hai">
+                <h4>Lihat Matkul</h4>
+                <p>Melihat mata kuliah</p>
             </div>
         </div>
     </div>
@@ -103,6 +116,7 @@
 
     <script>
     const body = document.body;
+    alert("AKU SUDAH MUAK PLS");
     const image = document.getElementById("image")
     image.addEventListener('click', (event) => {
         event.preventDefault();

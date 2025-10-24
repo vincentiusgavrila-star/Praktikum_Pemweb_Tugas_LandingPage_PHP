@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
     if (mysqli_num_rows($result) == 1) {
         $data = mysqli_fetch_assoc($result);
     } else {
-        echo "<script>alert('Data tidak ditemukan!'); window.location.href='koneksi.php';</script>";
+        echo "<script>alert('Data tidak ditemukan!');</script>";
         exit;
     }
 }
@@ -23,15 +23,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $minat          = $_POST['minat'];
     $komentar       = $_POST['komentar'];
 
-    $updateQuery = "UPDATE mahasiswa 
-                    SET nama='$nama', jenis_kelamin='$jenis_kelamin', jurusan='$jurusan', minat='$minat', komentar='$komentar'
-                    WHERE id=$id";
+    $updateQuery = "UPDATE mahasiswa SET nama='$nama', jenis_kelamin='$jenis_kelamin', jurusan='$jurusan', minat='$minat', komentar='$komentar' WHERE id=$id";
 
     if (mysqli_query($koneksi, $updateQuery)) {
-        echo "<script>alert('Data berhasil diperbarui!'); window.location.href='lihatData.php';</script>";
+        echo "<script>alert('Data berhasil diperbarui!');</script>";
         exit;
     } else {
-        echo "Error: " . mysqli_error($koneksi);
+        echo ("Error " . $updateQuery . "<br>" . $koneksi->error);
     }
 }
 ?>
@@ -146,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- FORM UPDATE -->
     <div class="continerForm">
         <h1 class="titleForm">Edit Data Mahasiswa</h1>
-        <form method="POST">
+        <form method="POST" id="form">
             <input type="hidden" name="id" value="<?= $data['id'] ?>">
 
             <div class="form">
@@ -205,6 +203,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <button type="submit" id="form-button">Update Data</button>
         </form>
     </div>
+
+    <script>
+    const body = document.body;
+    const button = document.getElementById("form")
+    button.addEventListener('submit', (event) => {
+        event.preventDefault();
+        window.location.href = '../index.php';
+    });
+    </script>
 </body>
 
 </html>

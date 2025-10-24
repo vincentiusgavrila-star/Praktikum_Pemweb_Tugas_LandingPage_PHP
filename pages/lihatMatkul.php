@@ -1,11 +1,8 @@
 <?php
 include 'koneksi.php';
 
-$sql = "SELECT * FROM mahasiswa";
-$result = $koneksi->query($sql);
-
 $sqlMatkul = "SELECT * FROM matkul";
-$resultMatkul = $koneksi->query($sql);
+$resultMatkul = $koneksi->query($sqlMatkul);
 
 ?>
 
@@ -15,7 +12,7 @@ $resultMatkul = $koneksi->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Mahasiswa</title>
+    <title>Data Matkul</title>
     <link rel="stylesheet" href="../assets/css/main.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -77,32 +74,38 @@ $resultMatkul = $koneksi->query($sql);
         </div>
     </div>
     <!-- /NAVIGASI -->
+
+
     <div class="container">
-        <h1>Data Mahasiswa</h1>
+        <h1>Data Matkul</h1>
 
         <table>
             <tr>
-                <th>ID</th>
-                <th>Nama</th>
-                <th>Jurusan</th>
-                <th>Minat</th>
-                <th>Komentar</th>
+                <th>Kode Matkul</th>
+                <th>Nama Matkul</th>
+                <th>SKS</th>
+                <th>Semester</th>
+                <th>Dosen Pengampu</th>
+                <th>Kategori</th>
+                <th>Deskripsi</th>
                 <th>Aksi</th>
             </tr>
 
             <?php
-            if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
+            if (mysqli_num_rows($resultMatkul) > 0) {
+                while ($row = mysqli_fetch_assoc($resultMatkul)) {
                     echo "<tr>";
-                    echo "<td>".$row['id']."</td>";
-                    echo "<td>".$row['nama']."</td>";
-                    echo "<td>".$row['jurusan']."</td>";
-                    echo "<td>".$row['minat']."</td>";
-                    echo "<td>".$row['komentar']."</td>";
+                    echo "<td>".$row['kode_matkul']."</td>";
+                    echo "<td>".$row['nama_matkul']."</td>";
+                    echo "<td>".$row['sks']."</td>";
+                    echo "<td>".$row['semester']."</td>";
+                    echo "<td>".$row['dosen']."</td>";
+                    echo "<td>".$row['kategori']."</td>";
+                    echo "<td>".$row['deskripsi']."</td>";
                     echo "<td>
                     <div class='d-flex gap-2'>
-                        <a href='update.php?id=".$row['id']."' class='btn btn-sm btn-warning'>Edit</a>
-                        <a href='hapus.php?id=".$row['id']."' class='btn btn-sm btn-danger' onclick='return confirm(\"Yakin hapus data ini?\")'>Hapus</a>
+                        <a href='update.php?id=".$row['kode_matkul']."' class='btn btn-sm btn-warning'>Edit</a>
+                        <a href='hapus.php?id=".$row['kode_matkul']."' class='btn btn-sm btn-danger' onclick='return confirm(\"Yakin hapus data ini?\")'>Hapus</a>
                     </div>
                     </td>";
                     echo "</tr>";
@@ -114,6 +117,7 @@ $resultMatkul = $koneksi->query($sql);
             ?>
         </table>
     </div>
+
 </body>
 
 </html>
